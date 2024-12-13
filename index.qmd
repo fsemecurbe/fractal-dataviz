@@ -4,14 +4,14 @@ author: François Marouchi Semecurbe
 format: 
   closeread-html:
     css: cr-tufte.css
-    remove-header-space: false
+    remove-header-space: true
     code-tools: true
     image: mindard-map.png
     description: Revisiting a classic of data visualization
     mainfont: 'et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif'
     cr-style:
       narrative-background-color-overlay: transparent
-      narrative-background-color-sidebar: yellow
+      narrative-background-color-sidebar: transparent
       section-background-color: transparent
       narrative-text-color-overlay: black
       narrative-font-family: 'et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif'
@@ -68,6 +68,57 @@ It may well be the best statistical graphic ever drawn.[@cr-map]{pan-to="0%,0%" 
 
 :::
 
+
+## The dimension of information
+
+
+## And what about geography... 
+
+
+```{ojs}
+carreaux_20000 = FileAttachment("carreaux_20000.geojson").json();
+carreaux_5000 = FileAttachment("carreaux_5000.geojson").json();
+carreaux_1000 = FileAttachment("carreaux_1000.geojson").json();
+carreaux_200 = FileAttachment("carreaux_200.geojson").json();
+```
+
+```{ojs}
+zoom = {return { 
+            type: "Polygon",
+            coordinates:  [[[x_min,y_min],[x_min,y_max],[x_max,y_max],[x_max,y_min],[x_min,y_min]]]
+            
+          }
+        }
+        
+mer = {return { 
+            type: "Polygon",
+            coordinates:  [[[0, 6000000],[0,7500000],[1200000,7500000],[1200000,6000000],[0, 6000000]]]
+            
+          }
+        } 
+```
+
+
+
+```{ojs}
+
+projection = d3.geoIdentity()
+	.reflectY(true)
+	.fitSize([width/2, width /2 ], zoom);
+
+```
+
+
+```{ojs}
+progression = crProgressBlock
+```
+
+
+Ah, la Bretagne ! Terre des anciens mystères et des horizons oubliés, elle se dresse telle une sentinelle à l’extrémité occidentale d’Eurasie, avançant hardiment son front de roc vers les eaux tumultueuses de l’Atlantique. Là-bas, à l’orée du monde, ses paysages s’étirent comme des murmures d’éternité.
+
+Pour qui s’aventure jusqu’à ces contrées lointaines, après de longues traversées au gré des routes sinueuses, la Bretagne révèle son secret : elle n’est pas qu’une péninsule, mais un royaume d’emboîtements infinis, une danse fractale où chaque cap en cache un autre, où chaque promontoire semble chuchoter l’histoire des siècles.
+
+Voyageur, contemple ! Ces rivages ne sont pas de simples terres, mais des fragments du Grand Tissage. Ici, la géographie elle-même raconte l’épopée d’une terre façonnée par l’océan et le vent, une frontière entre l’ici et l’ailleurs, le connu et l’infini.
 
 
 
