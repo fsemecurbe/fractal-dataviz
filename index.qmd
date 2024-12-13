@@ -38,33 +38,26 @@ The first is the classic of Charles Joseph Minard (1781-1870), the French engine
 ![](multifractal.svg)
 :::
 
-Beginning at left on the Polish-Russian border near the Niemen River, the thick tan flow-line shows the size of the Grand Army (422,000) as it invaded Russia in June 1812. [@cr-map]{pan-to="0%,0%" scale-by="3"}
+Beginning at left on the Polish-Russian border near the Niemen River, the thick tan flow-line shows the size of the Grand Army (422,000) as it invaded Russia in June 1812. [@cr-map]{pan-to="0%,50%" scale-by="3"}
 
 The width of this band indicates the size of the army at each place on the map.
 
-In September, the army reached Moscow, which was by then sacked and deserted, with 100,000 men. [@cr-map]{pan-to="0%, 0%" scale-by="9"}
+In September, the army reached Moscow, which was by then sacked and deserted, with 100,000 men. [@cr-map]{pan-to="0%, 50%" scale-by="9"}
+
+
+the size of the army,
+
+
+and temperature on various dates during the retreat from Moscow.
+
+It may well be the best statistical graphic ever drawn.[@cr-map]{pan-to="0%,50%" scale-by="27"}
 
 
 the size of the army,
 
 its location on a two-dimensional surface,
 
-direction of the army's movement,
-
-and temperature on various dates during the retreat from Moscow.
-
-It may well be the best statistical graphic ever drawn.[@cr-map]{pan-to="0%,0%" scale-by="27"}
-
-
-the size of the army,
-
-its location on a two-dimensional surface,
-
-direction of the army's movement,
-
-and temperature on various dates during the retreat from Moscow.
-
-It may well be the best statistical graphic ever drawn.[@cr-map]{pan-to="0%,0%" scale-by="27"}
+It may well be the best statistical graphic ever drawn.[@cr-map]{pan-to="0%,50%" scale-by="27"}
 
 :::
 
@@ -101,11 +94,9 @@ mer = {return {
 
 
 ```{ojs}
-
 projection = d3.geoIdentity()
 	.reflectY(true)
-	.fitSize([width/2, width /2 ], zoom);
-
+	.fitSize([width, width  ], zoom);
 ```
 
 
@@ -120,5 +111,121 @@ Pour qui s’aventure jusqu’à ces contrées lointaines, après de longues tra
 
 Voyageur, contemple ! Ces rivages ne sont pas de simples terres, mais des fragments du Grand Tissage. Ici, la géographie elle-même raconte l’épopée d’une terre façonnée par l’océan et le vent, une frontière entre l’ici et l’ailleurs, le connu et l’infini.
 
+3234242.495148 3261111.876652
+
+4322644.069473 2016044.898118
 
 
+
+```{ojs}
+seuil = [0, .5, 1]
+```
+
+```{ojs}
+etape = seuil.findIndex(num => num > progression);
+```
+
+
+
+
+```{ojs}
+//| echo: false
+//| code-fold: false
+x_min_f = d3.scaleLinear()
+  .domain((progression<=.5 ? [0, .5] : [.5,1]))
+  .range((progression<=.5 ? [3234242, 3760524-100000] : [3760524-100000, 3760524-100000]))
+  .clamp(true)
+  
+x_max_f = d3.scaleLinear()
+  .domain((progression<=.5 ? [0, .5] : [.5,1]))
+  .range((progression<=.5 ? [4322644, 3760524+100000] : [3760524+100000, 3760524+100000]))
+  .clamp(true)
+  
+y_min_f = d3.scaleLinear()
+  .domain((progression<=.5 ? [0, .5] : [.5,1]))
+  .range((progression<=.5 ? [2016044, 2889128-100000] : [2889128-100000, 2889128-100000]))
+  .clamp(true)  
+
+y_max_f = d3.scaleLinear()
+  .domain((progression<=.5 ? [0, .5] : [.5,1]))
+  .range((progression<=.5 ? [3261111, 2889128+100000] : [2889128+100000, 2889128+100000]))
+  .clamp(true)
+
+
+
+x_min = x_min_f(progression)
+x_max = x_max_f(progression)
+y_min = y_min_f(progression)
+y_max = y_max_f(progression)
+
+
+
+```
+
+
+
+::::{.cr-section layout="overlay-center"}
+
+
+:::{.progress-block}
+
+
+La Bretagne est une terre singulière, fief familiale [d’Anaël](https://www.linkedin.com/in/ana%C3%ABl-delorme-573b8858/) et  [François](https://www.linkedin.com/in/francoissemecurbe) , deux personnalités aussi antinomiques qu’attachantes. @cr-cartes
+
+Mais aujourd'hui, ce qui nous intéresse, ce n'est pas la Bretagne dans son ensemble, mais un département bien précis.. @cr-cartes
+
+Un département de légende, peuplé d'irréductibles Gaulois @cr-cartes
+
+En avant vers les Côtes-d'Armor   @cr-cartes
+
+Ou plus précisément une presqu'île... @cr-cartes
+
+A l'est du département, quasiment caché du reste du monde... @cr-cartes
+
+Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
+
+
+:::
+
+
+:::{#cr-cartes}
+
+```{ojs}
+Plot.plot({
+  projection:  projection,
+	
+	width: width,
+	height: width,
+
+  color: {
+    type: "quantile",
+    n: 5,
+    scheme: "RdYlGn",
+    label: "Density of population",
+    legend: false,
+    reverse: true
+  },
+
+  marks: [
+    Plot.geo(carreaux_20000, {fill: (d) => d.properties.ind,
+                              fillOpacity: (etape==1 ? 1 : 0)  }),
+    Plot.geo(carreaux_5000, {strokeOpacity: 1, fill: (d) => d.properties.ind,
+                             fillOpacity: (etape==2 ? 1 : 0)}),
+
+    ,
+  ]
+})
+
+```
+
+:::
+
+
+::::
+
+
+Sometimes it can be worth closing your story with some additional text to give the scrollytelling section some room to breathe. So here's some nonsense!
+
+Eu in culpa officia cupidatat nostrud laborum do consequat officia Lorem tempor consectetur pariatur sunt. Veniam culpa dolore laborum nostrud ipsum pariatur ipsum dolore consectetur commodo ex. Non culpa deserunt voluptate. Amet excepteur incididunt deserunt pariatur velit labore do sunt occaecat eiusmod. Tempor proident sint exercitation culpa incididunt sunt proident sunt reprehenderit. Sint ipsum qui id nisi quis officia in. Anim velit minim fugiat qui dolor enim occaecat amet excepteur do aliqua ex adipisicing laboris labore.
+
+Culpa aute sint aliquip in aute enim cillum in exercitation cupidatat ex cupidatat mollit dolore ut. Et culpa minim laborum in ipsum laborum velit laboris fugiat ad culpa cillum. Sit nulla eu minim in nulla. Nulla esse sint occaecat eiusmod in irure in dolor veniam pariatur laboris consectetur sunt laboris excepteur. Dolor dolore ad incididunt consequat. Ad elit ullamco veniam cillum reprehenderit pariatur pariatur nisi ea. Pariatur quis ut deserunt eiusmod ipsum magna ullamco.
