@@ -61,8 +61,33 @@ It may well be the best statistical graphic ever drawn.[@cr-map]{pan-to="0%,50%"
 
 :::
 
+Most important how each scale are bounding together.
+
+### How can we make a fractal 
+
+there is a lot of way to produce a fractal, one very simple is based on cascade intuition. At each stage,  
+
+we need a generator. in our example above we use a 3, 3 matrix.  
+
+All the part of part of the fractal, 
+
 
 ## The dimension of information
+
+::::{.cr-section}
+
+Here is the first limerick appearing in the written record, from the *Saint John Daily News* in 1880. [@cr-limerick]{pan-to="0%,0%" scale-by="2"}
+
+The end of the first two lines of a Limerick must rhyme. [@cr-limerick]{pan-to="0%,0%" scale-by="2" highlight="cr-mean"}
+
+The end of the third and fourth line also rhyme and are nudged in a bit. [@cr-limerick]{pan-to="0%,0%" scale-by="2" highlight="cr-quant"}
+
+
+| {#cr-limerick .scale-to-fill}
+| [$H = - \sum_{i} p_i$]{#cr-mean}  [$\log_2 (p_i)$]{#cr-quant}
+:::
+
+L'entropie du Générator est la l'information marginale.
 
 
 ## And what about geography... 
@@ -231,3 +256,14 @@ Sometimes it can be worth closing your story with some additional text to give t
 Eu in culpa officia cupidatat nostrud laborum do consequat officia Lorem tempor consectetur pariatur sunt. Veniam culpa dolore laborum nostrud ipsum pariatur ipsum dolore consectetur commodo ex. Non culpa deserunt voluptate. Amet excepteur incididunt deserunt pariatur velit labore do sunt occaecat eiusmod. Tempor proident sint exercitation culpa incididunt sunt proident sunt reprehenderit. Sint ipsum qui id nisi quis officia in. Anim velit minim fugiat qui dolor enim occaecat amet excepteur do aliqua ex adipisicing laboris labore.
 
 Culpa aute sint aliquip in aute enim cillum in exercitation cupidatat ex cupidatat mollit dolore ut. Et culpa minim laborum in ipsum laborum velit laboris fugiat ad culpa cillum. Sit nulla eu minim in nulla. Nulla esse sint occaecat eiusmod in irure in dolor veniam pariatur laboris consectetur sunt laboris excepteur. Dolor dolore ad incididunt consequat. Ad elit ullamco veniam cillum reprehenderit pariatur pariatur nisi ea. Pariatur quis ut deserunt eiusmod ipsum magna ullamco.
+
+## Fractal is very useful to describe the organisation of a phenomena
+
+Density by definition depend on the scale of analysis as we can see (Maup). Fractal analysis  
+
+## Anything is fractal, but it's not a problem
+
+At the begining of the invention of fractal, scientists think Fractals were everything, everything must be fractal. 
+
+
+
