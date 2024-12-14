@@ -83,12 +83,6 @@ zoom = {return {
           }
         }
         
-mer = {return { 
-            type: "Polygon",
-            coordinates:  [[[0, 6000000],[0,7500000],[1200000,7500000],[1200000,6000000],[0, 6000000]]]
-            
-          }
-        } 
 ```
 
 
@@ -124,6 +118,12 @@ seuil = [0, .5, 1]
 ```{ojs}
 etape = seuil.findIndex(num => num > progression);
 ```
+
+```{ojs}
+data = (etape==1 ?  carreaux_20000 : carreaux_5000 )
+
+```
+
 
 
 
@@ -167,23 +167,23 @@ y_max = y_max_f(progression)
 ::::{.cr-section layout="overlay-center"}
 
 
+La Bretagne est une terre singulière, fief familiale [d’Anaël](https://www.linkedin.com/in/ana%C3%ABl-delorme-573b8858/) et  [François](https://www.linkedin.com/in/francoissemecurbe) , deux personnalités aussi antinomiques qu’attachantes. @cr-cartes
+
+
+
 :::{.progress-block}
 
 
 La Bretagne est une terre singulière, fief familiale [d’Anaël](https://www.linkedin.com/in/ana%C3%ABl-delorme-573b8858/) et  [François](https://www.linkedin.com/in/francoissemecurbe) , deux personnalités aussi antinomiques qu’attachantes. @cr-cartes
 
-Mais aujourd'hui, ce qui nous intéresse, ce n'est pas la Bretagne dans son ensemble, mais un département bien précis.. @cr-cartes
-
-Un département de légende, peuplé d'irréductibles Gaulois @cr-cartes
-
-En avant vers les Côtes-d'Armor   @cr-cartes
-
-Ou plus précisément une presqu'île... @cr-cartes
-
-A l'est du département, quasiment caché du reste du monde... @cr-cartes
 
 Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
 
+
+Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
+
+
+Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
 
 :::
 
@@ -192,7 +192,9 @@ Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-car
 
 ```{ojs}
 Plot.plot({
-  projection:  projection,
+  projection:  d3.geoIdentity()
+	.reflectY(true)
+	.fitSize([width, width  ], zoom),
 	
 	width: width,
 	height: width,
@@ -207,12 +209,12 @@ Plot.plot({
   },
 
   marks: [
-    Plot.geo(carreaux_20000, {fill: (d) => d.properties.ind,
-                              fillOpacity: (etape==1 ? 1 : 0)  }),
-    Plot.geo(carreaux_5000, {strokeOpacity: 1, fill: (d) => d.properties.ind,
-                             fillOpacity: (etape==2 ? 1 : 0)}),
+    Plot.geo(data, {fill: (d) => d.properties.ind,
+                                }),
+//    Plot.geo(carreaux_5000, {strokeOpacity: 1, fill: 'red',
+//                             fillOpacity: (etape==2 ? 1 : 0)}),
 
-    ,
+    , null
   ]
 })
 
