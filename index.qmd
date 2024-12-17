@@ -94,10 +94,10 @@ L'entropie du Générator est la l'information marginale.
 
 
 ```{ojs}
-carreaux_20000 = FileAttachment("carreaux_20000.geojson").json();
-carreaux_5000 = FileAttachment("carreaux_5000.geojson").json();
-carreaux_1000 = FileAttachment("carreaux_1000.geojson").json();
-carreaux_200 = FileAttachment("carreaux_200.geojson").json();
+carreaux_1 = FileAttachment("carreaux_20000.geojson").json();
+carreaux_2 = FileAttachment("carreaux_5000.geojson").json();
+carreaux_3 = FileAttachment("carreaux_1000.geojson").json();
+carreaux_4 = FileAttachment("carreaux_200.geojson").json();
 ```
 
 ```{ojs}
@@ -137,19 +137,47 @@ Voyageur, contemple ! Ces rivages ne sont pas de simples terres, mais des fragme
 
 
 ```{ojs}
-seuil = [0, .5, 1]
+seuil = [0, .25, .5, 0.75,  1]
 ```
 
 ```{ojs}
-etape = seuil.findIndex(num => num > progression);
+etape = seuil.findIndex(num => num > progression)-1;
 ```
 
 ```{ojs}
-data = (etape==1 ?  carreaux_20000 : carreaux_5000 )
+data_range = [carreaux_1, carreaux_2, carreaux_3, carreaux_4]
+
+data = data_range[etape]
+```
+
+```{ojs}
+seuil_range = [seuil[etape], seuil[etape+1]]
+
 
 ```
 
 
+```{ojs}
+zoom1 = 100000
+zoom2 = 20000
+zoom3 = 4000
+zoom4 = 1000
+```
+
+
+```{ojs}
+
+
+x_min_range = [[3234242, 3760524-zoom1], [3760524-zoom1, 3760524-zoom2], [3760524-zoom2, 3760524-zoom3],
+               [3760524-zoom3, 3760524-zoom4]]
+x_max_range =  [[4322644, 3760524+zoom1], [3760524+zoom1, 3760524+zoom2], [3760524+zoom2, 3760524+zoom3],
+               [3760524+zoom3, 3760524+zoom4]]
+y_min_range = [[2016044, 2889128-zoom1], [2889128-zoom1, 2889128-zoom2],  [2889128-zoom2, 2889128-zoom3],
+               [2889128-zoom3, 2889128-zoom4]]
+y_max_range = [[3261111, 2889128+zoom1], [2889128+zoom1, 2889128+zoom2],  [2889128+zoom2, 2889128+zoom3],
+               [2889128+zoom3, 2889128+zoom4]]               
+               
+```
 
 
 
@@ -157,23 +185,23 @@ data = (etape==1 ?  carreaux_20000 : carreaux_5000 )
 //| echo: false
 //| code-fold: false
 x_min_f = d3.scaleLinear()
-  .domain((progression<=.5 ? [0, .5] : [.5,1]))
-  .range((progression<=.5 ? [3234242, 3760524-100000] : [3760524-100000, 3760524-100000]))
+  .domain(seuil_range)
+  .range(x_min_range[etape])
   .clamp(true)
   
 x_max_f = d3.scaleLinear()
-  .domain((progression<=.5 ? [0, .5] : [.5,1]))
-  .range((progression<=.5 ? [4322644, 3760524+100000] : [3760524+100000, 3760524+100000]))
+  .domain(seuil_range)
+  .range(x_max_range[etape])
   .clamp(true)
   
 y_min_f = d3.scaleLinear()
-  .domain((progression<=.5 ? [0, .5] : [.5,1]))
-  .range((progression<=.5 ? [2016044, 2889128-100000] : [2889128-100000, 2889128-100000]))
+  .domain(seuil_range)
+  .range(y_min_range[etape])
   .clamp(true)  
 
 y_max_f = d3.scaleLinear()
-  .domain((progression<=.5 ? [0, .5] : [.5,1]))
-  .range((progression<=.5 ? [3261111, 2889128+100000] : [2889128+100000, 2889128+100000]))
+  .domain(seuil_range)
+  .range(y_max_range[etape])
   .clamp(true)
 
 
@@ -182,9 +210,6 @@ x_min = x_min_f(progression)
 x_max = x_max_f(progression)
 y_min = y_min_f(progression)
 y_max = y_max_f(progression)
-
-
-
 ```
 
 
@@ -204,18 +229,24 @@ La Bretagne est une terre singulière, fief familiale [d’Anaël](https://www.l
 
 Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
 
+Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
 
 Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
 
+Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
 
 Fractale parmi les fractales, elle se cache pour mieux se découvrir...  @cr-cartes
 
 :::
 
 
+
+
 :::{#cr-cartes}
 
 ```{ojs}
+
+
 Plot.plot({
   projection:  d3.geoIdentity()
 	.reflectY(true)
@@ -234,8 +265,7 @@ Plot.plot({
   },
 
   marks: [
-    Plot.geo(data, {fill: (d) => d.properties.ind,
-                                }),
+    Plot.geo(data, {fill: (d) => d.properties.ind}),
 //    Plot.geo(carreaux_5000, {strokeOpacity: 1, fill: 'red',
 //                             fillOpacity: (etape==2 ? 1 : 0)}),
 
