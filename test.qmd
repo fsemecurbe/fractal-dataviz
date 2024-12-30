@@ -1,0 +1,202 @@
+---
+title: "Why fractals are so uselful for Geographers?"
+author: François Marouchi Semecurbe
+format: 
+  closeread-html:
+    remove-header-space: true
+    code-tools: true
+---
+
+
+
+
+
+
+
+::::{.cr-section layout="overlay-center"}
+
+premier message @cr-cartes
+
+
+deuxième message @cr-cartes
+
+:::{.progress-block}
+troisieme message  @cr-cartes
+
+quartre  @cr-cartes
+
+cinq  @cr-cartes
+
+
+six @cr-cartes
+
+sept @cr-cartes
+
+:::
+
+
+:::{#cr-cartes}
+
+
+```{ojs}
+chartos = Plot.plot({
+  projection: projection,  
+	
+	width: width,
+	height: width,
+
+  color: {
+    type: "quantile",
+    n: 9,
+    scheme: "RdYlGn",
+    label: "Density of population",
+    legend: false,
+    reverse: true
+  },
+
+  marks: [
+    Plot.geo(data, {fill: (d) => d.properties.ind}),
+    Plot.geo(dep, { stroke: "black" }),
+    
+  ]
+})
+```
+
+```{ojs}
+//| output: false
+{
+     if  (crTriggerIndex==0){
+     mutable transitiond=1 
+     mutable data= carreaux_1
+     mutable projection=projection1
+    } else if (crTriggerIndex==1 & crDirection=="down" & transitiond==1) {
+      zoomIn(); // premier zoom
+      mutable transitiond=3;
+    //} else if (crTriggerIndex==1 & crDirection=="up" & transitiond==3) {
+    //  zoomOut();   // je reviens en arrriere
+    //  mutable transitiond = 1
+    //  mutable data = carreaux_1
+    } else if (crTriggerIndex==2) {
+      mutable projection = projection2
+      mutable data=carreaux_2
+      mutable transitiond = 3
+    } else if (crTriggerIndex==3 & crDirection=="down" & transitiond==3) {
+      mutable projection = projection2
+      mutable data=carreaux_2
+      zoomIn();  
+      mutable transitiond = 5
+    } else if (crTriggerIndex==4) {
+      mutable projection = projection3
+      mutable data=carreaux_3
+      mutable transitiond = 5
+    } else if (crTriggerIndex==5 & crDirection=="down" & transitiond==5) {
+      zoomIn2();  
+      mutable transitiond = 7
+    } else if (crTriggerIndex==6) {
+      mutable projection = projection4
+      mutable data=carreaux_4
+      mutable transitiond = 7
+    }
+    
+    
+    
+    
+  
+}
+```
+
+
+:::
+
+::::
+
+
+dqsgqsdg
+qsdfqsd
+f
+
+qsdfqsdf
+
+
+
+qsdfqsdf
+
+
+qsdfqsdf
+
+
+
+
+```{ojs}
+projection1 =     d3.geoTransform({point: function(x, y) {this.stream.point((x- 3760383+600000)/1200000*width,(-y+2889220+600000)/1200000*width);  }
+})
+
+projection2 =     d3.geoTransform({point: function(x, y) {this.stream.point((x- 3760383+600000/5)/(1200000/5)*width,(-y+2889220+600000/5)/(1200000/5)*width);  }
+})
+
+
+projection3 =     d3.geoTransform({point: function(x, y) {this.stream.point((x- 3760383+600000/25)/(1200000/25)*width,(-y+2889220+600000/25)/(1200000/25)*width);  }
+})
+
+
+projection4 =     d3.geoTransform({point: function(x, y) {this.stream.point((x- 3760383+600000/75)/(1200000/75)*width,(-y+2889220+600000/75)/(1200000/75)*width);  }
+})
+
+```
+
+```{ojs}
+zoom = d3.zoom()
+	.scaleExtent([0.25, 20])
+	.on('zoom', handleZoom);
+
+function handleZoom(e) {
+	d3.select('svg').selectAll("g")
+		.attr('transform', e.transform);
+}
+
+
+function zoomIn() {
+	d3.select('svg')
+	  .transition()
+		.call(zoom.scaleBy, 5)
+}
+
+function zoomIn2() {
+	d3.select('svg')
+	  .transition()
+		.call(zoom.scaleBy, 3)
+}
+
+
+function zoomOut() {
+	d3.select('svg')
+		.transition()
+		.call(zoom.scaleBy, 0.2);
+}
+```
+
+
+
+```{ojs}
+mutable transitiond=0;
+mutable transitionu=0;
+```
+
+```{ojs}
+mutable data = carreaux_1
+mutable projection = projection1
+```
+
+
+
+```{ojs}
+data_range = [carreaux_1, carreaux_1, carreaux_2, carreaux_2, carreaux_4];
+```
+
+```{ojs}
+carreaux_1 = FileAttachment("carreaux_20000.geojson").json();
+carreaux_2 = FileAttachment("carreaux_5000.geojson").json();
+carreaux_3 = FileAttachment("carreaux_1000.geojson").json();
+carreaux_4 = FileAttachment("carreaux_200.geojson").json();
+dep = FileAttachment("dep.geojson").json();
+```
